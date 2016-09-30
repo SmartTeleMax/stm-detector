@@ -1,0 +1,19 @@
+{
+  "name": "stm-common",
+  "version": "1.0.0",
+  "description": "Common code for STM tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmartTeleMax/stm-common.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SmartTeleMax/stm-common/issues"
+  },
+  "homepage": "https://github.com/SmartTeleMax/stm-common#readme"
+}

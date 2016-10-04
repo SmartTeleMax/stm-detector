@@ -1,2 +1,2 @@
-# stm-common
-Common code for STM tools
+# stm-detector
+Detect device type

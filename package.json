@@ -1,19 +1,30 @@
 {
-  "name": "stm-common",
+  "name": "stm-detector",
   "version": "1.0.0",
-  "description": "Common code for STM tools",
-  "main": "index.js",
+  "description": "Detect device type",
+  "main": "lib/detector.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "rimraf lib/* && babel src -d lib",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SmartTeleMax/stm-common.git"
+    "url": "git+https://github.com/SmartTeleMax/stm-detector.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SmartTeleMax/stm-common/issues"
+    "url": "https://github.com/SmartTeleMax/stm-detector/issues"
   },
-  "homepage": "https://github.com/SmartTeleMax/stm-common#readme"
+  "homepage": "https://github.com/SmartTeleMax/stm-detector#readme",
+  "dependencies": {
+    "jquery": ">= 1.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-preset-es2015": "^6.16.0",
+    "rimraf": "^2.5.4"
+  }
 }

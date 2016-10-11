@@ -1,9 +1,6 @@
 /*jslint esversion: 6, -W097, browser: true, strict: implied, -W034 */
-/* globals console, require */
-
+/* globals console */
 'use strict';
-
-var $ = require('jquery');
 
 // detecting user device
 export var isMobile = {
@@ -28,6 +25,18 @@ export var isMobile = {
     }
 };
 
+export var isBrowser = {
+    Firefox: function () {
+        return (navigator.userAgent.match(/Firefox/i));
+    },
+    Webkit: function () {
+        return (navigator.userAgent.match(/Webkit/i));
+    },
+    PhantomJS: function () {
+        return (navigator.userAgent.match(/PhantomJS/i));
+    }
+};
+
 export var isTablet = {
     Android: function() {
         return (navigator.userAgent.match(/Android/i) && !navigator.userAgent.match(/Mobile/i));
@@ -40,22 +49,32 @@ export var isTablet = {
     }
 };
 
-function deviceClass() {
-    var $body = $(document.body);
+// Following functions are not executed on import anymore
+export function detectDeviceClass() {
+    let body = document.body;
     if (isMobile.any()) {
-        $body.addClass('mobile');
+        body.classList.add('mobile');
     }
 
     if (isMobile.Android()) {
-        $body.addClass('android');
+        body.classList.add('android');
     }
 
     if (isTablet.any()) {
-        $body.addClass('tablet');
+        body.classList.add('tablet');
     }
 }
 
-deviceClass(); // XXX
+export function detectBrowserClass() {
+    let body = document.body;
+    if (isBrowser.Firefox()) {
+        body.classList.add('is-firefox');
+    }
+    if (isBrowser.PhantomJS()) {
+        body.classList.add('is-phantom');
+    }
+}
+
 
 export function supportsTransitions() {
     var b = document.body || document.documentElement;
@@ -76,3 +95,9 @@ export function supportsTransitions() {
     return false;
 }
 
+// This function can be triggered on window resize
+export function detectWindowWidth(mobileWidth=730) {
+    let isMobileWidth = window.innerWidth < mobileWidth;
+    let body = document.body;
+    isMobileWidth ? body.classList.add('is-mobile-width') : body.classList.remove('is-mobile-width');
+}

@@ -1,6 +1,6 @@
 {
   "name": "stm-detector",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Detect device type",
   "main": "lib/detector.js",
   "scripts": {

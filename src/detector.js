@@ -79,16 +79,19 @@ export function detectBrowserClass() {
 export function supportsTransitions(doc = document) {
     var b = doc.body || doc.documentElement;
     var s = b.style;
-    var p = 'transition';
-    if (typeof s[p] === 'string') {
+    var propName = 'transition';
+    var capitalizedPropName = propName.charAt(0).toUpperCase() + propName.substr(1);
+    var prefixes = ['Moz', 'webkit', 'Webkit', 'Khtml', 'O', 'ms'];
+    
+    if (typeof s[propName] === 'string') {
         return true;
     }
 
     // Tests for vendor specific prop
-    var v = ['Moz', 'webkit', 'Webkit', 'Khtml', 'O', 'ms'];
-    p = p.charAt(0).toUpperCase() + p.substr(1);
-    for (var i = 0; i < v.length; i++) {
-        if (typeof s[v[i] + p] === 'string') {
+    for (var i = 0; i < prefixes.length; i++) {
+        var prefix = prefixes[i];
+        var vendorPropName = prefix + capitalizedPropName;
+        if (typeof s[vendorPropName] === 'string') {
             return true;
         }
     }

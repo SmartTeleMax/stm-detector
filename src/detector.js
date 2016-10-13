@@ -32,10 +32,10 @@ export var isMobile = {
 };
 
 export var isBrowser = {
-    Firefox: function () {
+    Firefox: function() {
         return !!(navigator.userAgent.match(/Firefox/i));
     },
-    Webkit: function () {
+    Webkit: function() {
         return !!(navigator.userAgent.match(/Webkit/i));
     },
 };
@@ -76,8 +76,8 @@ export function detectBrowserClass() {
 }
 
 
-export function supportsTransitions() {
-    var b = document.body || document.documentElement;
+export function supportsTransitions(doc = document) {
+    var b = doc.body || doc.documentElement;
     var s = b.style;
     var p = 'transition';
     if (typeof s[p] === 'string') {
@@ -96,8 +96,12 @@ export function supportsTransitions() {
 }
 
 // This function can be triggered on window resize
-export function detectWindowWidth(mobileWidth=730) {
+export function detectWindowWidth(mobileWidth = 730) {
     let isMobileWidth = window.innerWidth < mobileWidth;
     let body = document.body;
-    isMobileWidth ? body.classList.add('is-mobile-width') : body.classList.remove('is-mobile-width');
+    if (isMobileWidth) {
+        body.classList.add('is-mobile-width');
+    } else {
+        body.classList.remove('is-mobile-width');
+    }
 }

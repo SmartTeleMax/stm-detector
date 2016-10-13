@@ -26,7 +26,7 @@ const mobileUserAgents = {
 };
 
 const defaultUserAgent = navigator.userAgent;
-
+global.window = { document: { body: { style: { transition: 42 } } } };
 
 function setUserAgent(userAgent) {
     if (window.navigator.userAgent != userAgent) {
@@ -45,6 +45,58 @@ function setUserAgent(userAgent) {
     }
 }
 
+
+describe("#supportsTransitions", function() {
+    it('supports by default', function() {
+        assert.isTrue(detector.supportsTransitions(), 'phantomjs should support transitions');
+    });
+
+    it('do not support if there are no such property', function() {
+        var doc = { body: { style: {} } };
+        assert.isFalse(detector.supportsTransitions(doc));
+    });
+    it('Support vendor-specific', function() {
+        var doc = { body: { style: { MozTranzition: '' } } };
+        assert.isFalse(detector.supportsTransitions(doc));
+    });
+});
+
+
+describe("#detectWindowWidth", function() {
+    var __defaultWidth = window.innerWidth,
+        mobileCls = 'is-mobile-width';
+
+
+    afterEach(function() {
+        window.innerWidth = __defaultWidth;
+        document.body.className = "";
+    });
+    it('Desktop width with default args', function() {
+        window.innerWidth = 1024;
+
+        detector.detectWindowWidth();
+
+        assert.isFalse(document.body.classList.contains(mobileCls));
+    });
+    it('Zero width with default args', function() {
+        window.innerWidth = 0;
+        detector.detectWindowWidth();
+
+        assert.isTrue(document.body.classList.contains(mobileCls));
+    });
+    it('Corner case with default args', function() {
+        window.innerWidth = 730;
+        detector.detectWindowWidth();
+
+        assert.isFalse(document.body.classList.contains(mobileCls));
+    });
+    it('Custom mobile width', function() {
+        window.innerWidth = 1024;
+        detector.detectWindowWidth(1200);
+
+        assert.isTrue(document.body.classList.contains(mobileCls));
+    });
+});
 
 describe("#isMobile", function() {
     var check = detector.isMobile;
